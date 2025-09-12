@@ -48,7 +48,7 @@ model Server {
   @@index([profileId])
 }
 
-enum MemeberRole {
+enum MemberRole {
   ADMIN
   MODERATOR
   GUEST
@@ -56,7 +56,7 @@ enum MemeberRole {
 
 model Member {
   id String @id @default(uuid())
-  role MemeberRole @default(GUEST)
+  role MemberRole @default(GUEST)
 
   profileId String
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
