@@ -20,6 +20,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useModal } from "@/hooks/use-modal-store"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ChannelType } from "@prisma/client"
+import { useEffect } from "react"
 
 const formSchema = z.object({
    name: z.string().min(1, {
@@ -31,11 +32,12 @@ const formSchema = z.object({
 })
 
 export const CreateChannelModal = () => {
-   const { isOpen, onClose, type } = useModal();
+   const { isOpen, onClose, type, data } = useModal();
    const router = useRouter();
    const params = useParams();
 
    const isModalOpen = isOpen && type === "createChannel";
+   const { channelType } = data;
 
    const form = useForm({
       resolver: zodResolver(formSchema),
@@ -44,6 +46,16 @@ export const CreateChannelModal = () => {
          type: ChannelType.TEXT,
       },
    })
+
+   useEffect(() => {
+      if (isModalOpen) {
+         if (channelType) {
+            form.setValue("type", channelType);
+         } else {
+            form.setValue("type", ChannelType.TEXT);
+         }
+      }
+   }, [channelType, form, isModalOpen]);
 
    const isLoading = form.formState.isSubmitting;
 
@@ -65,7 +77,10 @@ export const CreateChannelModal = () => {
    }
 
    const handleClose = () => {
-      form.reset();
+      form.reset({
+         name: "",
+         type: ChannelType.TEXT,
+      });
       onClose();
    }
 
@@ -105,7 +120,7 @@ export const CreateChannelModal = () => {
                               <Select
                                  disabled={isLoading}
                                  onValueChange={field.onChange}
-                                 defaultValue={field.value}
+                                 value={field.value}
                               >
                                  <FormControl>
                                     <SelectTrigger className="w-full text-black !bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0">

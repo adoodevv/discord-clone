@@ -2,9 +2,15 @@
 @import "tw-animate-css";
 
 html,
-body,
 :root {
   height: 100%;
+}
+
+body {
+  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
 }
 
 #root {
@@ -130,4 +136,19 @@ body,
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Ensure modals are positioned correctly */
+[data-radix-portal] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 9999 !important;
+}
+
+[data-radix-portal]>* {
+  pointer-events: auto !important;
 }
