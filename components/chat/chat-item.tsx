@@ -58,7 +58,6 @@ export const ChatItem = ({
    socketQuery,
 }: ChatItemProps) => {
    const [isEditing, setIsEditing] = useState(false);
-   const inputRef = useRef<HTMLInputElement>(null);
    const { onOpen } = useModal();
    const params = useParams();
    const router = useRouter();
@@ -76,7 +75,7 @@ export const ChatItem = ({
       },
    });
 
-   useEffect(() => form.reset({ content }), [content]);
+   useEffect(() => form.reset({ content }), [content, form]);
 
    useEffect(() => {
       const handleKeyDown = (e: KeyboardEvent) => {
@@ -125,7 +124,7 @@ export const ChatItem = ({
       if (isEditing) {
          form.setFocus("content");
       }
-   }, [isEditing, form.setFocus]);
+   }, [isEditing, form]);
 
    return (
       <div className="relative group flex items-center hover:bg-black/5 p-4 transition w-full">

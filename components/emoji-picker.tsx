@@ -23,7 +23,7 @@ export const EmojiPickerButton = ({ onChange }: EmojiPickerProps) => {
             className="bg-transparent border-none shadow-none drop-shadow-none mb-16"
          >
             <EmojiPicker
-               onEmojiClick={(emoji: any) => onChange(emoji.emoji)}
+               onEmojiClick={(emoji: { emoji: string }) => onChange(emoji.emoji)}
                theme={theme as Theme}
             />
          </PopoverContent>
