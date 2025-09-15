@@ -7,7 +7,7 @@ import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import qs from "query-string";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
