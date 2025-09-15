@@ -138,17 +138,37 @@ body {
   }
 }
 
-/* Ensure modals are positioned correctly */
-[data-radix-portal] {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none !important;
-  z-index: 9999 !important;
+/* Custom responsive sidebar styles */
+.nav-sidebar {
+  display: none;
 }
 
-[data-radix-portal]>* {
-  pointer-events: auto !important;
+.main-content {
+  padding-left: 0;
+}
+
+.server-sidebar {
+  display: none;
+}
+
+.server-main {
+  padding-left: 0;
+}
+
+@media (min-width: 640px) {
+  .nav-sidebar {
+    display: flex;
+  }
+
+  .main-content {
+    padding-left: 72px;
+  }
+
+  .server-sidebar {
+    display: flex;
+  }
+
+  .server-main {
+    padding-left: 240px;
+  }
 }
