@@ -4,7 +4,13 @@ import { redirect } from "next/navigation";
 import { auth } from '@clerk/nextjs/server'
 import ServerSidebar from "@/components/server/server-sidebar";
 
-const ServerIdLayout = async ({ children, params }: { children: React.ReactNode, params: { serverId: string } }) => {
+export default async function ServerIdLayout({
+   children,
+   params
+}: {
+   children: React.ReactNode;
+   params: Promise<{ serverId: string }>;
+}) {
    const { redirectToSignIn } = await auth()
    const profile = await currentProfile();
 
@@ -12,7 +18,7 @@ const ServerIdLayout = async ({ children, params }: { children: React.ReactNode,
       return redirectToSignIn();
    }
 
-   const { serverId } = await Promise.resolve(params);
+   const { serverId } = await params;
 
    const server = await db.server.findUnique({
       where: {
@@ -40,5 +46,3 @@ const ServerIdLayout = async ({ children, params }: { children: React.ReactNode,
       </div>
    )
 }
-
-export default ServerIdLayout
